@@ -1,0 +1,40 @@
+This code sets up an ESP32 to toggle an LED's state whenever a button is pressed. 
+It is designed to handle button debouncing with multiple checks and delays.
+
+1 . #define PIN_LED 2: This defines a constant named PIN_LED with a value of 2. This will be used to refer to the LED pin.
+
+2 .#define PIN_BUTTON 13: This defines a constant named PIN_BUTTON with a value of 13. This will be used to refer to the button pin.
+
+3.void setup() {: This defines the setup function, which runs once when the board is powered on or reset.
+
+4. pinMode(PIN_LED, OUTPUT);: This sets the PIN_LED as an output, meaning it can send signals.
+
+5. pinMode(PIN_BUTTON, INPUT);: This sets the PIN_BUTTON as an input, meaning it can read signals.
+
+6. void loop() {: This defines the loop function, which runs repeatedly as long as the board is powered on.
+
+7. if (digitalRead(PIN_BUTTON) == LOW) {: Checks if the button is pressed (assuming LOW means pressed). If true, it proceeds with the code inside the if block.
+
+8.  delay(20);: Introduces a 20 milliseconds delay to debounce the button press.
+
+9. if (digitalRead(PIN_BUTTON) == LOW) {: Rechecks if the button is still pressed after the delay.
+
+10. reverseGPIO(PIN_LED);: Calls the reverseGPIO function to toggle the state of the LED.
+
+11. while (digitalRead(PIN_BUTTON) == LOW);: Waits until the button is released.
+
+12. delay(20);: Another 20 milliseconds delay to debounce.
+
+13.  if (digitalRead(PIN_BUTTON) == LOW) {: Rechecks if the button is still pressed.
+
+14.  reverseGPIO(PIN_LED);: Calls the reverseGPIO function again to toggle the state of the LED.
+
+15. while (digitalRead(PIN_BUTTON) == LOW);: Waits until the button is released.
+
+16. delay(20);: Another 20 milliseconds delay to debounce.
+
+17.if (digitalRead(PIN_BUTTON) == LOW) {: A final check if the button is pressed.
+
+18.void reverseGPIO(int pin) {: Defines the reverseGPIO function, which takes a pin number as an argument.
+
+19 .digitalWrite(pin, !digitalRead(pin));: Reads the current state of the pin and writes the opposite state to it, effectively toggling the pin's state.
